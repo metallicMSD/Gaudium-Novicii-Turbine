@@ -1,4 +1,12 @@
 august 18th 2026: I configured OpenGL, right now all i have is a program that opens a window, it goes dark if you resize it.
 much to do...
 
-august 18th 2026: its 1:12am. I have discovered I need to learn some more c++. this is because I refuse to use an external tool to import images into OpenGL, and would rather add my own image file support, I'll start with BMP, since it seems simple enough. development on the engine might be on hold for a bit.
+august 18th 2026: its 1:12am. I have discovered I need to learn some more c++. 
+this is because I refuse to use an external tool to import images into OpenGL, and would rather add my own image file support, 
+I'll start with BMP, since it seems simple enough. 
+development on the engine might be on hold for a bit.
+
+August 19th 2026: well, today I drew a triangle, and then a triforce,
+which makes little sense if you read my previous entry, as I would be
+making my own image format support before doing something as basic as a triangle.
+I need to stop being so lazy.
