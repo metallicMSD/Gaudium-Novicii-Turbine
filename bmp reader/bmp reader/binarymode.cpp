@@ -4,6 +4,10 @@
 #include <vector>
 #include <filesystem>
 
+//as of now, its hardcoded to only work on 1 image, you need to replace the file directory to your
+//bmp file with the full directory and it should probably work.
+//i'll add a GUI later, if i can actually import the image into opengl.
+
 // 1 here prevents padding
 #pragma pack(push, 1)
 struct BMPFileHeader {
