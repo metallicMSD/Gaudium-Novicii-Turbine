@@ -2,24 +2,33 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <fstream>
+#include <vector>
+#include <cstdint>
 
-// Vertex Shader source code
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-//Fragment Shader source code
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);\n"
-"}\n\0";
+#include"shaderClass.h"
+#include"bmp_loader.h"
+#include"VAO.h"
+#include"VBO.h"
+#include"EBO.h"
 
-//no z axis at the moment.
-//x leftmost window is -1, rightmost is 1. y lowermost is -1, uppermost is 1.
+// Vertices coordinates
+GLfloat vertices[] =
+{
+	-0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,	0.0f, 0.0f, // Lower left corner
+	-0.5f,  0.5f, 0.0f,     0.0f, 1.0f, 0.0f,	0.0f, 1.0f, // Upper left corner
+	 0.5f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f,	1.0f, 1.0f, // Upper right corner
+	 0.5f, -0.5f, 0.0f,     1.0f, 1.0f, 1.0f,	1.0f, 0.0f  // Lower right corner
+};
+
+// Indices for vertices order
+GLuint indices[] =
+{
+	0, 2, 1, // Upper triangle
+	0, 3, 2 // Lower triangle
+};
+
+
+
 
 int main()
 
@@ -28,26 +37,15 @@ int main()
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //a kind of package thingie, the core profile is modern.
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //a kind of package thingie, the core profile is modern.	
 
+	GLFWwindow* window = glfwCreateWindow(800, 600, "Novicii", NULL, NULL); //creates the acursed object. first "NULL" is for fullscreen.
 
-	GLfloat vertices[] = {
-		-0.5f , -0.5f * float(sqrt(3)) / 3, 0.0f, //left
-		0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, //right
-		0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f //top
-
-		//all cordinates are between -1 and 1.
-	};
-
-	//now we make the window
-
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Novicii", NULL, NULL); //creates the acursed object. first "NULL" is for fullscreen, its null
-																			//here because we dont want that. sencond null is unkown the guy on youtube didnt tell me what it is.
-	if (window == NULL) 
+	if (window == NULL)
 	{
 		std::cout << "FUCK MY LIFE IT DIDNT WORK" << std::endl;
-		glfwTerminate(); //KILLS the window
-		return -1; //never seen -1 before, waow. You should know i'm a huge novice.
+		glfwTerminate();
+		return -1;
 	}
 
 	glfwMakeContextCurrent(window); //without this, the window is useless.
@@ -57,94 +55,97 @@ int main()
 	glViewport(0, 0, 800, 600); //0.0 is the bottom left. 
 
 
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER); //creates the shader. GLuint is an unsigned int.
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL); //1 is the number of shaders we are passing in. NULL is for length.
-	glCompileShader(vertexShader); 
 
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER); 
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL); 
-	glCompileShader(fragmentShader); 
+	// Generates Shader object using shaders defualt.vert and default.frag
+	Shader shaderProgram("default.vert", "default.frag");
 
-	GLuint shaderProgram = glCreateProgram(); 
 
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);		//something to do with wrapping the shaders.
-	glLinkProgram(shaderProgram);
+	// Generates Vertex Array Object and binds it
+	VAO VAO1;
+	VAO1.Bind();
 
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	// Generates Vertex Buffer Object and links it to vertices
+	VBO VBO1(vertices, sizeof(vertices));
+	// Generates Element Buffer Object and links it to indices
+	EBO EBO1(indices, sizeof(indices));
 
-	//VBO
-	GLuint VBO;
+	// Links VBO attributes such as coordinates and colors to VAO
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	// Unbind all to prevent accidentally modifying them
+	VAO1.Unbind();
+	VBO1.Unbind();
+	EBO1.Unbind();
 
-	glGenBuffers(1, &VBO); //generates the buffer. 1 is the number of buffers we want to generate. &VBO is the address of the buffer.
-	glBindBuffer(GL_ARRAY_BUFFER, VBO); //binds the buffer. GL_ARRAY_BUFFER is the type of buffer we are binding.
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); //copies the data to the buffer.
-	//theres static, drawn once, dynamic, draw many times, and stream, draw once and discard!
-	// theres also draw, read and copy.
+
+	//stratospshere.
+
+	int width, height;
+	std::vector<uint8_t> pixels;
+
+	loadBMP("C:\\Users\\tallm\\source\\repos\\bmp reader\\bmp reader\\stratosphereBMP.bmp", width, height, pixels);
+
+	GLuint texture_id;
+	glGenTextures(1, &texture_id);
+	glBindTexture(GL_TEXTURE_2D, texture_id);
+
+	glTexImage2D(
+		GL_TEXTURE_2D,
+		0,
+		GL_RGB,
+		width,
+		height,
+		0,			//legacy, unimportant.
+		GL_RGB,
+		GL_UNSIGNED_BYTE,
+		pixels.data()
+);
 	
-	 
-	
-	//VBO
 
-	//VAO
-
-	GLuint VAO; 
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); //0 is the index of the vertex attribute. 3 is how many values per vertex 
-																				  //GL_FLOAT is the type of values. GL_FALSE is whether to normalize the data. 
-																				  // 3 * sizeof(float) is the stride(amount of data between each vertex). (void*)0 is the offset.
-	glEnableVertexAttribArray(0); //enables the vertex attribute.
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0); //unbinds the buffer.
-	glBindVertexArray(0); //unbinds the vertex array.
-
-	//order here is extremely important.
-
-	//VAO
-
-	//GLuint textureID;																							
-	//glGenTextures(1, &textureID);
-
-	//glBindTexture(GL_TEXTURE_2D, textureID);
-
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Width, Height, 0, GL_BGR, GL_UNSIGNED_BYTE, pixels.data());
-
-
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f); //makes it dark blue, last one is transparency. 1.0 is no transparency.
-	glClear(GL_COLOR_BUFFER_BIT); //clears the color buffer.
-	glfwSwapBuffers(window); //see's the colors.
-
-
-	while (!glfwWindowShouldClose(window)) //windows doesnt close by itself unless we make it to or somehing else does
-	{
-
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glUseProgram(shaderProgram);
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3); //draws the triangle. 0 is the starting index. 3 is the number of vertices to draw.
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		
-		glfwSwapBuffers(window); //tells it to
-		glfwPollEvents();		 //process the thing
-	}
 
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	glDeleteProgram(shaderProgram);
+	//stratospshere.
 
+	// Main while loop
+		while (!glfwWindowShouldClose(window))
+		{
+			// Specify the color of the background
+			glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+			// Clean the back buffer and assign the new color to it
+			glClear(GL_COLOR_BUFFER_BIT);
+			// Tell OpenGL which Shader Program we want to use
+			shaderProgram.Activate();
+			// Bind the VAO so OpenGL knows to use it
+			VAO1.Bind();
+
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture_id);
+			GLint texUniform = glGetUniformLocation(shaderProgram.ID, "u_Texture");
+			glUniform1i(texUniform, 0);
+		
+
+			// Draw primitives, number of indices, datatype of indices, index of indices
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			// Swap the back buffer with the front buffer
+			glfwSwapBuffers(window);
+			// Take care of all GLFW events
+			glfwPollEvents();
+		}
+
+
+
+	// Delete all the objects we've created
+	VAO1.Delete();
+	VBO1.Delete();
+	EBO1.Delete();
+	shaderProgram.Delete();
+	// Delete window before ending the program
 	glfwDestroyWindow(window);
-
-	glfwTerminate(); //KILLS the window
+	// Terminate GLFW before ending the program
+	glfwTerminate();
 	return 0;
 }
-
