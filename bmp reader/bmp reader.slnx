@@ -1,7 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
-  <Project Path="bmp reader/bmp reader.vcxproj" Id="7b7cdfe5-b871-491a-bc88-436808a30b29" />
-</Solution>
