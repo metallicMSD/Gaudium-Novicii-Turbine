@@ -10,3 +10,11 @@ August 19th 2026: well, today I drew a triangle, and then a triforce,
 which makes little sense if you read my previous entry, as I would be
 making my own image format support before doing something as basic as a triangle.
 I need to stop being so lazy.
+
+August 20th 2026: productive day today. I added my own custom BMP image support,
+it wasn't that hard, BMP is a simple image format. Just needed to do some
+light reading on how BMP works and OpenGL documentation for textures and I got it
+working. Now what? I want to add audio support, the simplest would be WAV,
+since its uncompressed (same case for BMP actually) but audio will be much
+more complex than a static image, and will require much more studying and time.
+Let's see what I get done tomorrow.
