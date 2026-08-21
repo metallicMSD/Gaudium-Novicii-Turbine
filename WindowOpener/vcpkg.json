@@ -1,0 +1,10 @@
+{
+  "name": "window-opener",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "glm",
+    "glfw3",
+    "glad"
+  ]
+}
+
