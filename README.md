@@ -4,6 +4,10 @@ I am a mere beginner, expect things to not work or be made poorly.
 
 the name means "Novice's Joy" as in, the love of learning.
 
+ITS IN DEVELOPMENT, IT WILL NOT BE GENERAL PURPOSE, IT WILL NOT BE
+ADVANCED, IT WILL BE AT BEST COMPARABLE TO A GAME ENGINE FROM
+THE 90'S, IF THAT.
+
 
 FEATURES:
 
