@@ -16,3 +16,11 @@ BMP image support:
 <img width="2560" height="1600" alt="Screenshot 2026-08-20 163310" src="https://github.com/user-attachments/assets/b8bcb2e9-f0e0-4e88-8458-ccfc9796226f" />
 
 only works with images whos height and width are divisble by 4, still cool!!! 
+
+CREDIT
+
+Victor Gordan, for his tutorial on OpenGL:
+https://www.youtube.com/watch?v=XpBGwZNyUh0&list=PLPaoO-vpZnumdcb4tZc4x5Q-v7CkrQ6M-
+
+G-Truc, for his Software:
+https://github.com/g-truc/glm
