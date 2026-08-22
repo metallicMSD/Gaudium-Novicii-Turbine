@@ -25,10 +25,11 @@
 #include"VBO.h"
 #include"EBO.h"
 #include"Camera.h"
+#include "GUI.h"
 
 
-const unsigned int width = 800;
-const unsigned int height = 800;
+const unsigned int width = 1920;
+const unsigned int height = 1080;
 
 // Vertices coordinates
 GLfloat vertices[] =
@@ -193,6 +194,8 @@ int main()
 	Shader shaderProgram("default.vert", "default.frag");
 
 
+	//STRATOSPSERE
+
 	// Generates Vertex Array Object and binds it
 	VAO VAO1;
 	VAO1.Bind();
@@ -211,7 +214,9 @@ int main()
 	VBO1.Unbind();
 	EBO1.Unbind();
 
+	//STRATOSPSHERE 
 
+	
 
 	//stratospshere.
 
@@ -289,6 +294,12 @@ int main()
 
 	//stratospshere.
 
+
+//GUI
+	GUI gui;
+	gui.Init();
+//GUI
+
 	// Main while loop
 		while (!glfwWindowShouldClose(window))
 		{
@@ -299,6 +310,8 @@ int main()
 			// Tell OpenGL which Shader Program we want to use
 			shaderProgram.Activate();
 			// Bind the VAO so OpenGL knows to use it 
+
+			
 
 			camera.Inputs(window);
 
@@ -323,14 +336,23 @@ int main()
 			GLint texUniform = glGetUniformLocation(shaderProgram.ID, "u_Texture");
 			glUniform1i(texUniform, 0);
 		
-			
+
 
 			// Draw primitives, number of indices, datatype of indices, index of indices
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+
+			//GUI
+			gui.Render();
+			//GUI
+
 			// Swap the back buffer with the front buffer
 			glfwSwapBuffers(window);
 			// Take care of all GLFW events
 			glfwPollEvents();
+
+
+
 		}
 
 
@@ -339,6 +361,9 @@ int main()
 	VAO1.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
+	//GUI
+	gui.Cleanup();
+	// GUI
 	//AUDIO
 	waveOutReset(hWaveOut);
 	waveOutUnprepareHeader(hWaveOut, pWaveHdr1, sizeof(WAVEHDR));

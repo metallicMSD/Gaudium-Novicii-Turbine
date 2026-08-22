@@ -36,6 +36,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bmp_loader.h">
@@ -56,12 +59,21 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="default.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="guiShader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="guishader.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
