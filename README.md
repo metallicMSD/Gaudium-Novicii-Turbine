@@ -1,4 +1,4 @@
-A open source, hobbyist game engine made with as little external dependencies as is feasible.
+An open source, hobbyist FPS game engine made with as little external dependencies as is feasible.
 
 I am a mere beginner, expect things to not work or be made poorly.
 
@@ -17,7 +17,8 @@ BMP image support:
 
 only works with images whos height and width are divisble by 4, still cool!!! 
 
-16 bit PCM WAV support and "Realistic" audio:
+16 bit PCM WAV support and  audio sources:
+
 https://github.com/user-attachments/assets/93ce8fb6-0745-462e-b1c8-151d4dd8e6b5
 
 CREDIT:
