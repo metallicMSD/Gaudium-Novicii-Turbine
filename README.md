@@ -17,6 +17,9 @@ BMP image support:
 
 only works with images whos height and width are divisble by 4, still cool!!! 
 
+16 bit PCM WAV support and "Realistic" audio:
+https://github.com/user-attachments/assets/93ce8fb6-0745-462e-b1c8-151d4dd8e6b5
+
 CREDIT
 
 Victor Gordan, for his tutorial on OpenGL:
