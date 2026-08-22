@@ -18,3 +18,10 @@ working. Now what? I want to add audio support, the simplest would be WAV,
 since its uncompressed (same case for BMP actually) but audio will be much
 more complex than a static image, and will require much more studying and time.
 Let's see what I get done tomorrow.
+
+August 21st 2026: Surprisingly, WAV wasn't hard to figure out, the hard part was 
+discovering how to use Microsoft's old API's, specifically waveOut, since it was
+the simplest, it came with Windows 3.0 i think. terrible documentation.
+Now i have 16bit PCM WAV support! and i also made audio sources!
+as in, when you get further, the audio decreases!. I suppose next is lighting? im
+more interested in physics.
