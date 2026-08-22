@@ -1,4 +1,4 @@
-A open source, hobbyist game engine made by yours truly.
+A open source, hobbyist game engine made with as little external dependencies as is feasible.
 
 I am a mere beginner, expect things to not work or be made poorly.
 
