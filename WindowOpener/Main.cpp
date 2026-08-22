@@ -1,9 +1,12 @@
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <fstream>
 #include <vector>
 #include <cstdint>
+
 #include <glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include<glm/gtc/type_ptr.hpp>
@@ -16,6 +19,8 @@
 #include"VAO.h"
 #include"VBO.h"
 #include"EBO.h"
+#include"Camera.h"
+
 
 const unsigned int width = 800;
 const unsigned int height = 800;
@@ -91,17 +96,18 @@ int main()
 
 	//stratospshere.
 
-	int width, height;
+	int imgwidth, imgheight;
 	std::vector<uint8_t> pixels;
 
-	loadBMP("C:\\Users\\tallm\\source\\repos\\bmp reader\\bmp reader\\stratosphereBMP.bmp", width, height, pixels);
+	loadBMP("C:\\Users\\tallm\\source\\repos\\bmp reader\\bmp reader\\stratosphereBMP.bmp", imgwidth, imgheight, pixels);
 
 	// Variables that help the rotation of the stratospshere
-	float rotation = 0.0f;
-	double prevTime = glfwGetTime();
+	//float rotation = 0.0f;
+	//double prevTime = glfwGetTime();
 
 	glEnable(GL_DEPTH_TEST);
 
+	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 
 	GLuint texture_id;
 	glGenTextures(1, &texture_id);
@@ -111,8 +117,8 @@ int main()
 		GL_TEXTURE_2D,
 		0,
 		GL_RGB,
-		width,
-		height,
+		imgwidth,
+		imgheight,
 		0,			//legacy, unimportant.
 		GL_RGB,
 		GL_UNSIGNED_BYTE,
@@ -135,17 +141,22 @@ int main()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			// Tell OpenGL which Shader Program we want to use
 			shaderProgram.Activate();
-			// Bind the VAO so OpenGL knows to use it
+			// Bind the VAO so OpenGL knows to use it 
+
+			camera.Inputs(window);
+
+			camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+
 			VAO1.Bind();
 
 			//simple timer
 			//maybe move above VAO1.Bind(); ?
-			double crntTime = glfwGetTime();
-			if (crntTime - prevTime >= 1 / 60)
-			{
-				rotation += 0.5f;
-				prevTime = crntTime;
-			}
+			//double crntTime = glfwGetTime();
+			//if (crntTime - prevTime >= 1 / 60)
+			//{
+			//	rotation += 0.5f;
+			//	prevTime = crntTime;
+			//}
 
 
 
@@ -154,21 +165,7 @@ int main()
 			GLint texUniform = glGetUniformLocation(shaderProgram.ID, "u_Texture");
 			glUniform1i(texUniform, 0);
 		
-			glm::mat4 model = glm::mat4(1.0); //initializing.
-			glm::mat4 view = glm::mat4(1.0); //initializing.
-			glm::mat4 proj = glm::mat4(1.0); //initializing.
-
-			model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f)); //rotates the thing
-			view = glm::translate(view, glm::vec3(0.0f, -0.5f,-2.0f )); //moves the camera.
-			proj = glm::perspective(glm::radians(45.0f), (float) (width / height), 0.1f, 100.0f); //in essence, FOV.
-
-			// Outputs the matrices into the Vertex Shader
-			int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			int viewLoc = glGetUniformLocation(shaderProgram.ID, "view");
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-			int projLoc = glGetUniformLocation(shaderProgram.ID, "proj");
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+			
 
 			// Draw primitives, number of indices, datatype of indices, index of indices
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

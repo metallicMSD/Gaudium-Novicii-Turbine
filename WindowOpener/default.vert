@@ -4,12 +4,13 @@ layout (location = 0) in vec3 aPos;     //unsure
 layout (location = 2) in vec2 aTexCoord; //tells it about the texture.
 out vec2 TexCoord; //output variable to the fragment shader
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 proj;
+// Imports the camera matrix from the main function
+uniform mat4 camMatrix;
+
+
 
 void main()
 {
-   gl_Position = proj * view * model * vec4(aPos, 1.0);
+   gl_Position = camMatrix * vec4(aPos, 1.0);
    TexCoord = aTexCoord;	
 }
