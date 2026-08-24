@@ -298,6 +298,9 @@ int main()
 //GUI
 	GUI gui;
 	gui.Init();
+	gui.AddButton(0.8f, 0.8f, 0.2f); //first button
+	gui.AddButton(-0.8f, 0.8f, 0.15f); //second, smaller button.
+	//Now all i have to do is add a new line here for a new button!! innovative!
 //GUI
 
 	// Main while loop

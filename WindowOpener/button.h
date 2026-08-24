@@ -1,0 +1,41 @@
+#ifndef BUTTON_CLASS_H
+#define BUTTON_CLASS_H
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <glm/gtc/type_ptr.hpp>
+#include "shaderClass.h"
+#include "VAO.h"
+#include "VBO.h"
+
+class Button
+{
+
+public:
+	//call once 
+	void Init(float x, float y, float size); //allows customization
+
+	//call every frame. updated when hovering
+	void Update(GLFWwindow* window, int windowWidth, int windowheight);
+
+	//call every frame, draws the accursed object.
+	void Render(Shader& sharedShader); //with this, you can share a shader.
+
+	void Cleanup();
+
+	bool isClicked() const { return clicking; }
+	bool isHovered() const { return hovering; }
+
+private:
+	VAO buttonVAO;
+	VBO* buttonVBO = nullptr;
+
+	float minX, maxX, minY, maxY;
+
+	bool hovering = false;
+	bool clicking = false;
+
+};
+
+#endif 
+
