@@ -25,3 +25,7 @@ the simplest, it came with Windows 3.0 i think. terrible documentation.
 Now i have 16bit PCM WAV support! and i also made audio sources!
 as in, when you get further, the audio decreases!. I suppose next is lighting? im
 more interested in physics.
+
+August 23rd 2026: Added buttons, they change color when you hover and click
+on them, this will be used to make a GUI, my first goal is to generate a cube,
+and then implement very basic physics. Only then, can I look into lighting.
