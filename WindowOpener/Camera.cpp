@@ -1,4 +1,7 @@
 #include"Camera.h"
+#include"GUI.h"
+#include"shaderClass.h"
+
 
 Camera::Camera(int width, int height, glm::vec3 position)
 {
@@ -63,7 +66,7 @@ void Camera::Inputs(GLFWwindow* window)
 
 
 	// Handles mouse inputs
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 	{
 		// Hides mouse cursor
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
@@ -108,4 +111,19 @@ void Camera::Inputs(GLFWwindow* window)
 		// Makes sure the next time the camera looks around it doesn't jump
 		firstClick = true;
 	}
+
+
+	//GUI
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	{
+		// Stores the coordinates of the cursor
+		double mouseX;
+		double mouseY;
+		// Fetches the coordinates of the cursor
+		glfwGetCursorPos(window, &mouseX, &mouseY);
+
+		float ndcX = (2.0f * mouseX) / width - 1.0f;
+		float ndcY = 1.0f - (2.0f * mouseY) / height;  //mouse coordinates.
+	}
+	//GUI
 }

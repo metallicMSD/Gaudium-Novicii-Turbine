@@ -70,10 +70,10 @@
     <None Include="default.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="guiShader.vert">
+    <None Include="guiShadervert.txt">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="guishader.frag">
+    <None Include="guiShaderfrag.txt">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

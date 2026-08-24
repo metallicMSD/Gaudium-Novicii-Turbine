@@ -21,6 +21,8 @@ public:
     //calls it evert frane
     void Render();
 
+    void Update(GLFWwindow* window, int windowWidth, int windowHeight);  //new stuff
+
     void Cleanup();
 
 private:
@@ -28,6 +30,13 @@ private:
     VBO* guiVBO = nullptr;
     Shader* guiShader = nullptr;
     unsigned int vertexCount = 0;
+
+    //FOR HOVER
+    float minX, maxX, minY, maxY;
+
+    bool isHovered = false;
+    bool isClicked = false;
+    //FOR HOVER
 };
 
 #endif

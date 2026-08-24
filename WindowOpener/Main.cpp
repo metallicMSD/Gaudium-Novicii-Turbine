@@ -343,6 +343,7 @@ int main()
 
 
 			//GUI
+			gui.Update(window, width, height); //HOVER
 			gui.Render();
 			//GUI
 
