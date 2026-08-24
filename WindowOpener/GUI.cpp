@@ -5,11 +5,12 @@ void GUI::Init()
 	sharedShader = new Shader("guiShadervert.txt", "guiShaderfrag.txt");
 }
 
-void GUI::AddButton(float x, float y, float size)
+int GUI::AddButton(float x, float y, float size)
 {
 	Button b;
 	b.Init(x, y, size);
 	buttons.push_back(b);
+	return (int)buttons.size() - 1; //button indexxxxxxx
 }
 
 void GUI::Update(GLFWwindow* window, int windowWidth, int windowHeight)
@@ -33,6 +34,18 @@ void GUI::Render()
 //its making me feel depressed.
 // i hate living in such a shithole.
 //8:39pm august 23rd 2026
+
+bool GUI::IsButtonClicked(int index) const
+{
+	if (index < 0 || index >= (int)buttons.size()) return false;
+	return buttons[index].isClicked();
+}
+
+bool GUI::IsButtonHovered(int index) const
+{
+	if (index < 0 || index >= (int)buttons.size()) return false;
+	return buttons[index].isHovered();
+}
 
 void GUI::Cleanup()
 {

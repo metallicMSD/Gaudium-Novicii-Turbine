@@ -298,8 +298,8 @@ int main()
 //GUI
 	GUI gui;
 	gui.Init();
-	gui.AddButton(0.8f, 0.8f, 0.2f); //first button
-	gui.AddButton(-0.8f, 0.8f, 0.15f); //second, smaller button.
+	int playButtonID = gui.AddButton(0.8f, 0.8f, 0.2f);
+	int quitButtonID = gui.AddButton(-0.8f, 0.8f, 0.15f);
 	//Now all i have to do is add a new line here for a new button!! innovative!
 //GUI
 
@@ -347,6 +347,22 @@ int main()
 
 			//GUI
 			gui.Update(window, width, height); //HOVER
+			
+			if (gui.IsButtonClicked(playButtonID))
+			{
+				std::cout << "IM SO COOL\n";
+			}
+
+			if (gui.IsButtonClicked(quitButtonID))
+			{
+				glfwSetWindowShouldClose(window, true);
+			}
+			
+			//IF YOU WANT YOUR NEW BUTTON TO DO SOMETHING
+			//INSERT THE ACT HERE.
+			//ButtonInit TO ADD A NEW COLOR, ButtonRender TO ENABLE IT
+
+
 			gui.Render();
 			//GUI
 

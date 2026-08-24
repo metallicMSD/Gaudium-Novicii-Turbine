@@ -9,10 +9,13 @@ class GUI
 {
 public:
 	void Init();
-	void AddButton(float x, float y, float size);
+	int AddButton(float x, float y, float size);
 	void Update(GLFWwindow* window, int windowWidth, int windowHeight);
 	void Render();
 	void Cleanup();
+
+	bool IsButtonClicked(int index) const;
+	bool IsButtonHovered(int index) const;
 
 private:
 	std::vector<Button> buttons;

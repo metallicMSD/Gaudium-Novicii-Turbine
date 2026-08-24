@@ -39,7 +39,7 @@ void Button::Update(GLFWwindow* window, int windowWidth, int windowHeight)
 	float ndcY = 1.0f - (2.0f * (float)mouseY) / windowHeight;
 
 	hovering = (ndcX >= minX && ndcX <= maxX && ndcY >= minY && ndcY <= maxY);
-	clicking = hovering && (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS);
+	clicking = hovering && (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS);
 }
 
 void Button::Render(Shader& sharedShader)

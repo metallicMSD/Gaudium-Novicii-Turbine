@@ -30,7 +30,7 @@ private:
 	VAO buttonVAO;
 	VBO* buttonVBO = nullptr;
 
-	float minX, maxX, minY, maxY;
+	float minX = 0.0f, maxX = 0.0f, minY = 0.0f, maxY = 0.0f;
 
 	bool hovering = false;
 	bool clicking = false;
