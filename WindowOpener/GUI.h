@@ -9,7 +9,7 @@ class GUI
 {
 public:
 	void Init();
-	int AddButton(float x, float y, float size);
+	int AddButton(float x, float y, float size, const char* imagePath);
 	void Update(GLFWwindow* window, int windowWidth, int windowHeight);
 	void Render();
 	void Cleanup();

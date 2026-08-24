@@ -5,10 +5,10 @@ void GUI::Init()
 	sharedShader = new Shader("guiShadervert.txt", "guiShaderfrag.txt");
 }
 
-int GUI::AddButton(float x, float y, float size)
+int GUI::AddButton(float x, float y, float size, const char* imagePath)
 {
 	Button b;
-	b.Init(x, y, size);
+	b.Init(x, y, size, imagePath);
 	buttons.push_back(b);
 	return (int)buttons.size() - 1; //button indexxxxxxx
 }
@@ -24,7 +24,7 @@ void GUI::Render()
 	glDisable(GL_DEPTH_TEST);
 
 	sharedShader->Activate();
-	for (auto& Button : buttons)
+	for (auto& Button : buttons) //"Button" here might lead to syntax errors.
 		Button.Render(*sharedShader);
 
 	glEnable(GL_DEPTH_TEST);

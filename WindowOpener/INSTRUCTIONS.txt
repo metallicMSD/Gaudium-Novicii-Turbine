@@ -1,0 +1,14 @@
+HOW TO ADD A NEW BUTTON:
+	add the button to main.cpp
+		int newButtonID = gui.AddButton(x, y, size, "image\\path\\lol.bmp");
+		//make sure the image height and width is divisible by 4 due to row padding
+		
+	to make it react to clicks,also in main.cpp's main loop,
+	after calling gui.Update(window, width, height):
+		if (gui.IsButtonClicked(newButtonID))
+		{
+			//whatever this is meant to do
+		}
+
+		gui.Render
+Thats it. look out for typos!!!!

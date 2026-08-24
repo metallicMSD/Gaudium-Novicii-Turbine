@@ -13,7 +13,7 @@ class Button
 
 public:
 	//call once 
-	void Init(float x, float y, float size); //allows customization
+	void Init(float x, float y, float size, const char* imagePath); //allows customization
 
 	//call every frame. updated when hovering
 	void Update(GLFWwindow* window, int windowWidth, int windowheight);
@@ -29,6 +29,7 @@ public:
 private:
 	VAO buttonVAO;
 	VBO* buttonVBO = nullptr;
+	GLuint textureID = 0; //FOR TEXTURES
 
 	float minX = 0.0f, maxX = 0.0f, minY = 0.0f, maxY = 0.0f;
 

@@ -298,8 +298,8 @@ int main()
 //GUI
 	GUI gui;
 	gui.Init();
-	int playButtonID = gui.AddButton(0.8f, 0.8f, 0.2f);
-	int quitButtonID = gui.AddButton(-0.8f, 0.8f, 0.15f);
+	int playButtonID = gui.AddButton(0.8f, 0.8f, 0.2f, "C:\\Users\\tallm\\Downloads\\castlewalls.bmp");
+	int quitButtonID = gui.AddButton(-0.8f, 0.8f, 0.15f, "C:\\Users\\tallm\\Downloads\\castlewalls.bmp");
 	//Now all i have to do is add a new line here for a new button!! innovative!
 //GUI
 

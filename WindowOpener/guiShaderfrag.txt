@@ -1,10 +1,13 @@
 #version 330 core
 
+in vec2 texCoord;
 out vec4 FragColor;
 
-uniform vec4 uColor;
+uniform sampler2D buttonTexture;
+uniform vec4 uColor; //still needed for hover and click
 
 void main()
 {
-    FragColor = uColor;
+    vec4 texColor = texture(buttonTexture, texCoord);
+    FragColor = texColor * uColor;
 }
