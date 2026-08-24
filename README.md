@@ -21,6 +21,9 @@ only works with images whos height and width are divisble by 4, still cool!!!
 
 https://github.com/user-attachments/assets/93ce8fb6-0745-462e-b1c8-151d4dd8e6b5
 
+this uses waveOut, a legacy Audio api (released in 1991).
+Im using It because it was the easiest to implement, I think.
+
 CREDIT:
 
 OpenGL, for the foundation of this whole project: https://www.opengl.org
