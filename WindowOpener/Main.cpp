@@ -195,6 +195,8 @@ int main()
 
 	//TEST
 
+	//lol
+
 
 
 	// Generates Shader object using shaders defualt.vert and default.frag
