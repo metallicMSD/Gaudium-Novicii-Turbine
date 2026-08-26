@@ -19,6 +19,7 @@ public:
 	Shader(const char* vertexFile, const char* fragmentFile);
 
 	// Activates the Shader Program
+	void setInt(const std::string& name, int value);
 	void Activate();
 	void Delete();
 };

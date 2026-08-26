@@ -26,26 +26,23 @@
 #include"EBO.h"
 #include"Camera.h"
 #include "GUI.h"
+#include"Meshes.h"
 
 
 const unsigned int width = 1920;
 const unsigned int height = 1080;
 
 // Vertices coordinates
-GLfloat vertices[] =
-{
-	-0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,	0.0f, 0.0f, // Lower left corner
-	-0.5f,  0.5f, 0.0f,     0.0f, 1.0f, 0.0f,	0.0f, 1.0f, // Upper left corner
-	 0.5f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f,	1.0f, 1.0f, // Upper right corner
-	 0.5f, -0.5f, 0.0f,     1.0f, 1.0f, 1.0f,	1.0f, 0.0f  // Lower right corner
+
+std::vector<Vertex> vertices = {
+	{ {-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f} },
+	{ {-0.5f,  0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f} },
+	{ { 0.5f,  0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f} },
+	{ { 0.5f, -0.5f, 0.0f}, {1.0f, 1.0f, 1.0f}, {1.0f, 0.0f} }
 };
 
-// Indices for vertices order
-GLuint indices[] =
-{
-	0, 2, 1, // Upper triangle
-	0, 3, 2 // Lower triangle
-};
+
+
 
 //AUDIO
 //GLOBAL
@@ -114,7 +111,7 @@ bool read_wav_file(std::string fname)
 
 	if (wav.bits_per_sample != 16)
 	{
-		std::cerr << "I CAN ONLY SUPPORT 16 BITS RIGHT NOW" << std::endl;
+		std::cerr << "I CAN ONLY SUPPORT 16 BIT PCM WAV RIGHT NOW" << std::endl;
 		return false;
 	}
 
@@ -188,6 +185,16 @@ int main()
 
 	glViewport(0, 0, width, height); //0.0 is the bottom left. 
 
+	//TEST
+	std::vector<GLuint> indices = { 0, 2, 1, 0, 3, 2 };
+
+	Texture tex;
+	tex.id = loadTextureFromBMP("C:\\Users\\tallm\\source\\repos\\bmp reader\\bmp reader\\stratosphereBMP.bmp");
+	tex.type = "diffuse";
+	tex.path = "C:\\Users\\tallm\\source\\repos\\bmp reader\\bmp reader\\stratosphereBMP.bmp";
+
+	//TEST
+
 
 
 	// Generates Shader object using shaders defualt.vert and default.frag
@@ -201,9 +208,9 @@ int main()
 	VAO1.Bind();
 
 	// Generates Vertex Buffer Object and links it to vertices
-	VBO VBO1(vertices, sizeof(vertices));
+	VBO VBO1(reinterpret_cast<GLfloat*>(vertices.data()), vertices.size() * sizeof(Vertex));
 	// Generates Element Buffer Object and links it to indices
-	EBO EBO1(indices, sizeof(indices));
+	EBO EBO1(indices.data(), indices.size() * sizeof(GLuint));
 
 	// Links VBO attributes such as coordinates and colors to VAO
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
@@ -215,8 +222,6 @@ int main()
 	EBO1.Unbind();
 
 	//STRATOSPSHERE 
-
-	
 
 	//stratospshere.
 
@@ -330,7 +335,9 @@ int main()
 			volume = newVolume;
 			//AUDIO
 
-			camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+			camera.updateMatrix(45.0f, 0.1f, 100.0f);
+
+			camera.Matrix(shaderProgram, "camMatrix");
 
 			VAO1.Bind();
 

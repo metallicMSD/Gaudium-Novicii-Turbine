@@ -172,6 +172,7 @@
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Meshes.cpp" />
     <ClCompile Include="shaderClass.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
@@ -182,7 +183,9 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="Meshes.h" />
     <ClInclude Include="shaderClass.h" />
+    <ClInclude Include="texture_loader.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
   </ItemGroup>
@@ -201,6 +204,8 @@
     </None>
     <None Include="guiShadervert.txt">
     </None>
+    <None Include="light.frag" />
+    <None Include="light.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="INSTRUCTIONS.txt" />
