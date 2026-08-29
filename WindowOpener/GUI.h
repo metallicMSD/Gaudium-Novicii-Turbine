@@ -10,6 +10,7 @@ class GUI
 public:
 	void Init();
 	int AddButton(float x, float y, float size, const char* imagePath);
+	int AddDropdown(int triggerButton, const std::vector<int>& itemButtonIndices);
 	void Update(GLFWwindow* window, int windowWidth, int windowHeight);
 	void Render();
 	void Cleanup();
@@ -20,5 +21,12 @@ public:
 private:
 	std::vector<Button> buttons;
 	Shader* sharedShader = nullptr;
+
+	struct Dropdown {
+		int triggerIndex;
+		std::vector<int>itemIndices;
+		bool open = false;
+	};
+	std::vector<Dropdown> dropdowns;
 };
 #endif

@@ -21,6 +21,9 @@ public:
 	//call every frame, draws the accursed object.
 	void Render(Shader& sharedShader); //with this, you can share a shader.
 
+	void SetVisible(bool visible) { isVisible = visible; }
+	bool Isvisible() const { return isVisible; }
+
 	void Cleanup();
 
 	bool isClicked() const { return clicking; }
@@ -35,6 +38,7 @@ private:
 
 	bool hovering = false;
 	bool clicking = false;
+		bool isVisible = true;
 
 };
 

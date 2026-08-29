@@ -13,10 +13,34 @@ int GUI::AddButton(float x, float y, float size, const char* imagePath)
 	return (int)buttons.size() - 1; //button indexxxxxxx
 }
 
+int GUI::AddDropdown(int triggerButton, const std::vector<int>& ItemButtonIndices)
+{
+	Dropdown d;
+	d.triggerIndex = triggerButton;
+	d.itemIndices = ItemButtonIndices;
+	d.open = false;
+
+	for (int idx : ItemButtonIndices)
+		buttons[idx].SetVisible(false);
+
+	dropdowns.push_back(d);
+	return (int)dropdowns.size() - 1;
+}
+
 void GUI::Update(GLFWwindow* window, int windowWidth, int windowHeight)
 {
 	for (auto& Button : buttons)
 		Button.Update(window, windowWidth, windowHeight);
+
+	for (auto& d : dropdowns)
+	{
+		if (buttons[d.triggerIndex].isClicked())
+		{
+			d.open = !d.open;
+			for (int idx : d.itemIndices)
+				buttons[idx].SetVisible(d.open);
+		}
+	}
 }
 
 void GUI::Render()

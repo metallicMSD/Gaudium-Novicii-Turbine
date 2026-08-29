@@ -300,14 +300,23 @@ int main()
 		
 
 	//stratospshere.
-
+	
 
 //GUI
 	GUI gui;
 	gui.Init();
 	int playButtonID = gui.AddButton(0.8f, 0.8f, 0.2f, "C:\\Users\\tallm\\Downloads\\castlewalls.bmp");
-	int quitButtonID = gui.AddButton(-0.8f, 0.8f, 0.15f, "C:\\Users\\tallm\\Downloads\\castlewalls.bmp");
+	int quitButtonID = gui.AddButton(-0.9f, 0.9f, 0.1f, "C:\\Users\\tallm\\Downloads\\castlewalls.bmp");
+
+	//DROPDOWN TRIGGERS AND MENU ITEMS!!!
+	int menuButtonID = gui.AddButton(0.0f, 0.9f, 0.1f, "C:\\Users\\tallm\\Downloads\\cubeBMP.bmp");
+	int menuSquareID = gui.AddButton(0.0f, 0.7f, 0.08f, "C:\\Users\\tallm\\Downloads\\cubeBMP.bmp");
+	int menuSlabID = gui.AddButton(0.0f, 0.5f, 0.08f, "C:\\Users\\tallm\\Downloads\\cubeBMP.bmp");
+	
+	int myDropwdownID = gui.AddDropdown(menuButtonID, { menuSquareID, menuSlabID });
+
 	//Now all i have to do is add a new line here for a new button!! innovative!
+	// (xaxisf, yaxisf, scalef)
 //GUI
 
 	// Main while loop
@@ -373,6 +382,15 @@ int main()
 
 
 			gui.Render();
+			if (gui.IsButtonClicked(menuSquareID))
+			{
+				std::cout << "SQUARE COMING SOON!\n";
+			}
+
+			if (gui.IsButtonClicked(menuSlabID))
+			{
+				std::cout << "SLAB COMING SOON!\n";
+			}
 			//GUI
 
 			// Swap the back buffer with the front buffer

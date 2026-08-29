@@ -46,6 +46,9 @@ void Button::Init(float x, float y, float size, const char* imagePath)
 
 void Button::Update(GLFWwindow* window, int windowWidth, int windowHeight)
 {
+	if (!isVisible) { hovering = false; clicking = false; return; }
+	
+
 	double mouseX, mouseY;
 	glfwGetCursorPos(window, &mouseX, &mouseY);
 
@@ -58,6 +61,7 @@ void Button::Update(GLFWwindow* window, int windowWidth, int windowHeight)
 
 void Button::Render(Shader& sharedShader)
 {
+	if (!isVisible) return;
 	glm::vec4 color;
 	if (clicking)
 		color = glm::vec4(0.7f, 0.7f, 0.7f, 1.0f);
