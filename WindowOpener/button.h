@@ -28,6 +28,7 @@ public:
 
 	bool isClicked() const { return clicking; }
 	bool isHovered() const { return hovering; }
+	bool isJustClicked() const { return justClicked; }
 
 private:
 	VAO buttonVAO;
@@ -39,6 +40,8 @@ private:
 	bool hovering = false;
 	bool clicking = false;
 		bool isVisible = true;
+		bool wasClicking = false;
+		bool justClicked = false;
 
 };
 

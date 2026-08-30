@@ -27,6 +27,7 @@
 #include"Camera.h"
 #include "GUI.h"
 #include"Meshes.h"
+#include "Cube.h"
 
 
 const unsigned int width = 1920;
@@ -77,6 +78,11 @@ struct Twavheader //tvaw reads the 1st 44 bytes. important stuff!
 Twavheader wav; // global so main() can read its fields after parsing
 
 glm::vec3 sourcePos = glm::vec3(0.0f, 0.0f, 0.0f);  //THIS IS THE SOUND ORIGIN, SOOOO IMPORTANT
+
+//SHAPE GENERATOR
+std::vector<Mesh> cubes;
+//SHAPE GENERATOR
+
 
 //GLOBAL
 //AUDIO
@@ -195,7 +201,7 @@ int main()
 
 	//TEST
 
-	//lol
+
 
 
 
@@ -363,7 +369,12 @@ int main()
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 
-			//GUI
+			//GUI			for (auto& cube : cubes)
+			for (auto& cube : cubes)
+				cube.Draw(shaderProgram);
+
+
+
 			gui.Update(window, width, height); //HOVER
 			
 			if (gui.IsButtonClicked(playButtonID))
@@ -382,9 +393,11 @@ int main()
 
 
 			gui.Render();
-			if (gui.IsButtonClicked(menuSquareID))
+			if (gui.IsButtonJustClicked(menuSquareID))
 			{
-				std::cout << "SQUARE COMING SOON!\n";
+				glm::vec3 spawnPos = camera.Position + camera.Orientation * 3.0f; // 3 units in front
+				auto [cubeVerts, cubeIndices] = MakeCube(spawnPos, 0.25f);
+				cubes.emplace_back(cubeVerts, cubeIndices, std::vector<Texture>{ tex });
 			}
 
 			if (gui.IsButtonClicked(menuSlabID))

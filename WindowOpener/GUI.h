@@ -17,6 +17,7 @@ public:
 
 	bool IsButtonClicked(int index) const;
 	bool IsButtonHovered(int index) const;
+	bool IsButtonJustClicked(int index) const;
 
 private:
 	std::vector<Button> buttons;

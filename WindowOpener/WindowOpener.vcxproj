@@ -181,6 +181,7 @@
     <ClInclude Include="bmp_loader.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="Meshes.h" />

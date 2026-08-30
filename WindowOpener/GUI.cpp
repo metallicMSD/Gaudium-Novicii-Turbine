@@ -71,6 +71,12 @@ bool GUI::IsButtonHovered(int index) const
 	return buttons[index].isHovered();
 }
 
+bool GUI::IsButtonJustClicked(int index) const
+{
+	if (index < 0 || index >= (int)buttons.size()) return false;
+	return buttons[index].isJustClicked();
+}
+
 void GUI::Cleanup()
 {
 	for (auto& Button : buttons)
